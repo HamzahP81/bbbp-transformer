@@ -7,7 +7,10 @@ from sklearn.preprocessing import StandardScaler
 train_df = pd.read_csv("train_bbbp.csv")
 valid_df = pd.read_csv("valid_bbbp.csv")
 
-feature_cols = [col for col in train_df.columns if col.startswith("X")]
+##ensures training is only on features no matter what they're called.
+non_feature_cols = ['ids', 'y', 'w']
+feature_cols = [col for col in train_df.columns if col not in non_feature_cols]
+
 X_train = train_df[feature_cols].values
 y_train = train_df["y"].values
 X_valid = valid_df[feature_cols].values
@@ -20,7 +23,7 @@ X_train = scaler.fit_transform(X_train)
 X_valid = scaler.transform(X_valid)
 
 # Train logistic regression
-model = LogisticRegression(max_iter=1000, solver='lbfgs')  # You could also try 'saga' for larger datasets
+model = LogisticRegression(max_iter=1000, solver='lbfgs', class_weight='balanced')  # You could also try 'saga' for larger datasets
 model.fit(X_train, y_train)
 
 # Predict
@@ -37,7 +40,7 @@ print(classification_report(y_valid, preds))
 # testing starts here
 test_df = pd.read_csv("test_bbbp.csv")
 X_test = test_df[feature_cols].values
-X_test = scaler.transform(X_test)  # Important: use SAME scaler
+X_test = scaler.transform(X_test)  
 
 # Predict
 test_preds = model.predict(X_test)

@@ -1,7 +1,10 @@
-deepchem>=2.7.0
-pandas>=1.3.0
-numpy>=1.21.0
-scikit-learn>=0.24.0
-rdkit-pypi
-torch>=2.0.0
-tensorflow>=2.11.0
+deepchem==2.8.0
+pandas==2.3.1
+scikit-learn==1.7.0
+torch==2.7.1
+torch-geometric==2.6.1
+transformers==4.53.2
+rdkit==2025.3.3
+tensorflow==2.19.0
+pytorch-lightning==2.5.2
+accelerate==1.8.1
